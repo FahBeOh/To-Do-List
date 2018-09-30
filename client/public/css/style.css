@@ -16,3 +16,15 @@ p:hover {
 .card {
     box-shadow: 0 8px 6px -6px black;
 }
+
+#today-header {
+    background-color: #cc444a
+}
+
+#week-header {
+    background-color: #f7c244
+}
+
+#month-header {
+    background-color: #53a351
+}
