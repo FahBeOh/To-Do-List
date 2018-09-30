@@ -1,3 +1,6 @@
+
+$($( document ).ready($.get("/api", (data) => console.log(data))));
+
 $("p").click(function() {
     $('#theModal').modal('toggle')
 });
@@ -6,10 +9,20 @@ $("p").click(function() {
     const form = {
         cacheDOM: function () {
             this.input = document.getElementById('new-task');
-            this.submit = document.getElementById('submit');
+            this.submitToday = document.getElementById('submit-today');
+            this.submitWeek = document.getElementById('submit-week');
+            this.submitMonth = document.getElementById('submit-month');
         },
         bindEvents: function () {
-            this.submit.addEventListener("click", function (){
+            this.submitToday.addEventListener("click", function (){
+                console.log(form.input.value);
+                form.input.value = "";
+            });
+            this.submitWeek.addEventListener("click", function (){
+                console.log(form.input.value);
+                form.input.value = "";
+            });
+            this.submitMonth.addEventListener("click", function (){
                 console.log(form.input.value);
                 form.input.value = "";
             })
@@ -19,4 +32,3 @@ $("p").click(function() {
     form.bindEvents();
 
 })();
-
