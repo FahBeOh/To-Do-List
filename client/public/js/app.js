@@ -1,6 +1,6 @@
-$($( document ).ready($.get("/api", (data) => console.log(data))));
+$($(document).ready($.get("/api", (data) => console.log(data))));
 
-$("p").click(function() {
+$("p").click(function () {
     $('#theModal').modal('toggle')
 });
 
@@ -17,13 +17,13 @@ $("p").click(function() {
             this.submitWeek.addEventListener("click", this.post);
             this.submitMonth.addEventListener("click", this.post);
         },
-        post: function (){
+        post: function () {
             let newTask = {
                 task: form.input.value.trim(),
                 type: this.id
             };
             $.post("/post", newTask);
-            
+
             console.log(newTask)
         }
     }
@@ -31,26 +31,3 @@ $("p").click(function() {
     form.bindEvents();
 
 })();
-
-// let newTask = {
-//     task: form.input.value.trim(),
-//     type: this.id
-// };
-
-// console.log(newTask)
-
-
-// $.post("/api/new", newChirp)
-// // On success, run the following code
-// .then(function() {
-
-//   var row = $("<div>");
-//   row.addClass("chirp");
-
-//   row.append("<p>" + newChirp.author + " chirped: </p>");
-//   row.append("<p>" + newChirp.body + "</p>");
-//   row.append("<p>At " + moment(newChirp.created_at).format("h:mma on dddd") + "</p>");
-
-//   $("#chirp-area").prepend(row);
-
-// });
