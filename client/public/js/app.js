@@ -1,5 +1,10 @@
 $($(document).ready($.get("/api", (data) => {
     console.log(data)
+    let taskData = {
+        id: "",
+        task: ""
+    };
+
     for (i = 0; i < data.length; i++) {
         console.log(data[i].type);
 
@@ -28,14 +33,62 @@ $($(document).ready($.get("/api", (data) => {
             document.getElementById(`body-month`).appendChild(pElement)
     }
 }
-$("p").click(function () {
-    console.log(this.innerHTML);
-    $('#theModal').modal('toggle');
+(() => {
+    const modal = {
+        cacheDOM: function () {
+            this.input = document.getElementById('modal-form');
+            this.saveBtn = document.getElementById('save');
+            this.deleteBtn = document.getElementById('delete');
+            this.task = document.getElementsByTagName('p')
+        },
+        bindEvents: function () {
+            for (i = 0; i < this.task.length; i++) {
+                this.task[i].addEventListener("click", this.modal);
+            };
+            this.saveBtn.addEventListener("click", this.save);
+            // this.task.addEventListener("click", this.update);
+            this.deleteBtn.addEventListener("click", this.delete);
+        },
+        modal: function () {
+            taskData.id = this.id,
+            modal.input.value = this.innerHTML;
+            $('#theModal').modal('toggle');
+        },
+        save: function() {
+            if (modal.input.value === ""){
+                return
+            }
+            else {
+                taskData.task = modal.input.value.trim()
+                $.ajax({
+                    url: '/update',
+                    type: 'PUT',
+                    data: taskData
+                });
+                taskData.id = "";
+                taskData.task = "";
+                console.log(taskData)
+            }
+        },
+        delete: function() {
+                taskData.task = modal.input.value.trim()
 
-});
+                $.ajax({
+                    url: '/delete',
+                    type: 'DELETE',
+                    data: taskData
+                });
+                console.log(taskData)
+                taskData.id = "";
+                taskData.task = "";
+
+        }
+    }
+    modal.cacheDOM();
+    modal.bindEvents();
+})();
+
 })));
-
-
 
 (() => {
     const form = {
@@ -63,3 +116,5 @@ $("p").click(function () {
     form.bindEvents();
 
 })();
+
+

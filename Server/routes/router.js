@@ -31,5 +31,14 @@ router.put("/update", (req, res) =>{
     })
 })
 
+router.delete("/delete", (req, res) => {
+    console.log(req.body);
+    let dbQuery = `DELETE from tasks WHERE id = ?`
+    db.query(dbQuery, [req.body.id], (err, data) => {
+        if (err) throw err;
+        console.log(`Success! ${req.body.task} has been deleted.`)
+    })
+})
+
 
 module.exports = router;
