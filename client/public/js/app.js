@@ -6,6 +6,7 @@ $($(document).ready($.get("/api", (data) => {
         if (data[i].type === `today`){
             let pElement = document.createElement('p');
             pElement.className = `border mt-2 p-2`;
+            pElement.id = `${data[i].id}`;
             let task = document.createTextNode(`${data[i].task}`);
             pElement.appendChild(task);
             document.getElementById(`body-today`).appendChild(pElement);
@@ -13,6 +14,7 @@ $($(document).ready($.get("/api", (data) => {
         else if (data[i].type === `week`){
             let pElement = document.createElement('p');
             pElement.className = `border mt-2 p-2`;
+            pElement.id = `${data[i].id}`;
             let task = document.createTextNode(`${data[i].task}`);
             pElement.appendChild(task);
             document.getElementById(`body-week`).appendChild(pElement)
@@ -20,15 +22,20 @@ $($(document).ready($.get("/api", (data) => {
         else if (data[i].type === `month`){
             let pElement = document.createElement('p');
             pElement.className = `border mt-2 p-2`;
+            pElement.id = `${data[i].id}`;
             let task = document.createTextNode(`${data[i].task}`);
             pElement.appendChild(task);
             document.getElementById(`body-month`).appendChild(pElement)
     }
-}})));
-
+}
 $("p").click(function () {
-    $('#theModal').modal('toggle')
+    console.log(this.innerHTML);
+    $('#theModal').modal('toggle');
+
 });
+})));
+
+
 
 (() => {
     const form = {

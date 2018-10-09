@@ -12,7 +12,6 @@ router.get("/api", (req, res) => {
     })
 });
 
-
 router.post("/post", (req, res) => {
     console.log(req.body);
     let dbQuery = "INSERT INTO tasks (task, type) VALUES (?,?)";
@@ -20,6 +19,15 @@ router.post("/post", (req, res) => {
         if (err) throw err;
         console.log(`Success! ${req.body.task} has been added.`)
         res.end()
+    })
+})
+
+router.put("/update", (req, res) =>{
+    console.log(req.body);
+    let dbQuery = `UPDATE tasks SET task = ? WHERE id = ?`
+    db.query(dbQuery, [req.body.task, req.body.id], (err, data) => {
+        if (err) throw err;
+        console.log(`Success! ${req.body.task} has been updated.`)
     })
 })
 
