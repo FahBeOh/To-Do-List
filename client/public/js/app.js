@@ -1,4 +1,30 @@
-$($(document).ready($.get("/api", (data) => console.log(data))));
+$($(document).ready($.get("/api", (data) => {
+    console.log(data)
+    for (i = 0; i < data.length; i++) {
+        console.log(data[i].type);
+
+        if (data[i].type === `today`){
+            let pElement = document.createElement('p');
+            pElement.className = `border mt-2 p-2`;
+            let task = document.createTextNode(`${data[i].task}`);
+            pElement.appendChild(task);
+            document.getElementById(`body-today`).appendChild(pElement);
+        }
+        else if (data[i].type === `week`){
+            let pElement = document.createElement('p');
+            pElement.className = `border mt-2 p-2`;
+            let task = document.createTextNode(`${data[i].task}`);
+            pElement.appendChild(task);
+            document.getElementById(`body-week`).appendChild(pElement)
+        }
+        else if (data[i].type === `month`){
+            let pElement = document.createElement('p');
+            pElement.className = `border mt-2 p-2`;
+            let task = document.createTextNode(`${data[i].task}`);
+            pElement.appendChild(task);
+            document.getElementById(`body-month`).appendChild(pElement)
+    }
+}})));
 
 $("p").click(function () {
     $('#theModal').modal('toggle')
@@ -23,8 +49,7 @@ $("p").click(function () {
                 type: this.id
             };
             $.post("/post", newTask);
-
-            console.log(newTask)
+            form.input.value=``;
         }
     }
     form.cacheDOM();
